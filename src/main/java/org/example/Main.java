@@ -9,7 +9,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         // Demander à l'utilisateur de saisir deux nombres
-        System.out.print("Entrez le premier nombre : ");
+        System.out.print("Entrez le premier nb : ");
         double premierNombre = scanner.nextDouble();
 
         System.out.print("Entrez le deuxième nombre : ");
