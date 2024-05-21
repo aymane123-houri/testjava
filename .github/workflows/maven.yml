@@ -8,7 +8,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout main branch for GitHub
+      - name: Checkout main branch
         uses: actions/checkout@v2
 
       - name: Set up JDK 18
@@ -19,8 +19,14 @@ jobs:
       - name: Build with Maven
         run: mvn -B package --file pom.xml | tee maven-output.txt
 
-      - name: Display Maven output
+      - name: Display Maven build output
         run: cat maven-output.txt
 
       - name: Run tests
-        run: mvn test
+        run: mvn test | tee test-output.txt
+
+      - name: Display test results
+        run: cat test-output.txt
+
+      - name: List the current directory
+        run: ls -a
