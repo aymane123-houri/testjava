@@ -1,12 +1,19 @@
-name: Java Spring CI
+name: Java CI with Maven
 
 on:
   push:
-    branches: ["main"]
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        test-to-run: [ "MainTest", "OtherTest" ]  # Ajoutez ici les noms des classes de test que vous souhaitez exécuter
+
     steps:
       - name: Checkout main branch
         uses: actions/checkout@v2
@@ -16,17 +23,25 @@ jobs:
         with:
           java-version: 18
 
-      - name: Build with Maven
-        run: mvn -B package --file pom.xml | tee maven-output.txt
+      - name: Cache Maven dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
 
-      - name: Display Maven build output
-        run: cat maven-output.txt
+      - name: Build and test with Maven
+        run: mvn -B verify --file pom.xml -Dtest=${{ matrix.test-to-run }}
 
-      - name: Run tests
-        run: mvn test | tee test-output.txt
+      - name: Upload test results
+        uses: actions/upload-artifact@v2
+        with:
+          name: surefire-reports
+          path: target/surefire-reports
 
-      - name: Display test results
-        run: cat test-output.txt
-
-      - name: List the current directory
-        run: ls -a
+      - name: Upload Maven cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
