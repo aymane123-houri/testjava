@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: MainTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.108 s <<< FAILURE! -- in MainTest
-MainTest.testAdd -- Time elapsed: 0.061 s <<< FAILURE!
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.105 s <<< FAILURE! -- in MainTest
+MainTest.testAdd -- Time elapsed: 0.063 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: 2 + 3 devrait être égal à 5 ==> expected: <5> but was: <6>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
